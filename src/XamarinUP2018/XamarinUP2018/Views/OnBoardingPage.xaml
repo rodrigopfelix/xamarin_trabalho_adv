@@ -5,11 +5,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="XamarinUP2018.Views.OnBoardingPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="120" />
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Grid.RowSpan="2" 
+               BackgroundColor="Accent" />
+        <StackLayout 
+            VerticalOptions="End"
+                     Grid.Row="0" 
+                     Margin="20, 0"
+                     Spacing="4">
+            <Label 
+               TextColor="White"
+               Text="Folly words widow one downs few age every seven"
+               FontAttributes="Bold"            
+               FontSize="22"/>
+            <Label 
+               TextColor="White"
+               Text="If miss part by fact he park just shew. Discovered had get considered projection who favourable."         
+               FontSize="20"/>
         </StackLayout>
-    </ContentPage.Content>
+        <Button Margin="20" Grid.Row="1" Text="Done"
+                VerticalOptions="Start" />
+    </Grid> 
 </ContentPage>
