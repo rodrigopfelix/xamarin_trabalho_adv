@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinUP2018.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : TabbedPage
+    public partial class FeedPage : ContentPage
     {
-        public HomePage()
+        public FeedPage()
         {
             InitializeComponent();
         }

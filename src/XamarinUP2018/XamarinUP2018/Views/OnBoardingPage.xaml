@@ -4,30 +4,39 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="False"
              x:Class="XamarinUP2018.Views.OnBoardingPage">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="120" />
         </Grid.RowDefinitions>
-        <Image Grid.Row="0" Grid.RowSpan="2" 
-               BackgroundColor="Accent" />
+        <Image Grid.Row="0" 
+               Grid.RowSpan="2" 
+               BackgroundColor="White" />
         <StackLayout 
             VerticalOptions="End"
                      Grid.Row="0" 
-                     Margin="20, 0"
+                     Margin="26, 0"
                      Spacing="4">
             <Label 
-               TextColor="White"
+               TextColor="#000"
                Text="Folly words widow one downs few age every seven"
                FontAttributes="Bold"            
                FontSize="22"/>
             <Label 
-               TextColor="White"
+               TextColor="#666"
                Text="If miss part by fact he park just shew. Discovered had get considered projection who favourable."         
                FontSize="20"/>
         </StackLayout>
-        <Button Margin="20" Grid.Row="1" Text="Done"
-                VerticalOptions="Start" />
+        <Button 
+           Command="{Binding GoHome}"
+            Visual="Material"
+            BackgroundColor="#FF0000"
+            TextColor="White"
+            FontAttributes="Bold"
+            HeightRequest="68"
+            Margin="26" Grid.Row="1" Text="Done"
+            VerticalOptions="Start" />
     </Grid> 
 </ContentPage>

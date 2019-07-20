@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinUP2018.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : TabbedPage
+    public partial class HistoryPage : ContentPage
     {
-        public HomePage()
+        public HistoryPage()
         {
             InitializeComponent();
         }

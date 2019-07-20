@@ -1,4 +1,8 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Navigation;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using XamarinUP2018.Views;
 
 namespace XamarinUP2018.ViewModels
 {
@@ -7,7 +11,12 @@ namespace XamarinUP2018.ViewModels
         public OnBoardingViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-
+            GoHome = new DelegateCommand(async () => await ExecuteGoHome());
         }
+
+        public ICommand GoHome { get; }
+
+        private Task ExecuteGoHome()
+            => NavigationService.NavigateAsync($"{nameof(HomePage)}");
     }
 }
