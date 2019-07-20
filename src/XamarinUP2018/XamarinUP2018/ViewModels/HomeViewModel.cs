@@ -18,7 +18,8 @@ namespace XamarinUP2018.ViewModels
             , IPageDialogService pageDialogService) : base(navigationService)
         {
             this.pageDialogService = pageDialogService;
-            ShowAlert = new DelegateCommand(async () => await ExecuteShowAllert());
+            ShowAlert = new DelegateCommand(async () => await ExecuteShowAllert())
+                .ObservesCanExecute(() => IsNotBusy);
         }
 
         private string text;
@@ -36,7 +37,6 @@ namespace XamarinUP2018.ViewModels
             {
                 await Task.Delay(5000);
                 await pageDialogService.DisplayAlertAsync("Hello", "The Message", "Ok");
-
             });
         }
     }
