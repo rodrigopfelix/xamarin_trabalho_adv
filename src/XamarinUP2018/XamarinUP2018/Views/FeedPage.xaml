@@ -37,8 +37,7 @@
                 VerticalOptions="Fill"
                 HorizontalOptions="Fill"
                 BackgroundColor="Red" />
-                            <Label 
-                TextColor="#000"  
+                            <Label  TextColor="#000"  
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding UserName}" FontAttributes="Bold" />
                             <BoxView
                 Grid.Row="0"

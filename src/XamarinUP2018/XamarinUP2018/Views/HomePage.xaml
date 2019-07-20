@@ -10,8 +10,8 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              android:TabbedPage.ToolbarPlacement="Bottom">
     <TabbedPage.Children>
-        <views:FeedPage Title="Feed" IconImageSource="baseline_rss_feed_black_48.png" />
         <views:HistoryPage Title="History" Icon="baseline_history_black_48.png" />
+        <views:FeedPage Title="Feed" IconImageSource="baseline_rss_feed_black_48.png" />
         <views:AboutPage Title="About" Icon="baseline_help_outline_black_48.png" />
     </TabbedPage.Children>
 </TabbedPage>

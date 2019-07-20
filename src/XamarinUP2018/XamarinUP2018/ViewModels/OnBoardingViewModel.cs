@@ -17,6 +17,6 @@ namespace XamarinUP2018.ViewModels
         public ICommand GoHome { get; }
 
         private Task ExecuteGoHome()
-            => NavigationService.NavigateAsync($"{nameof(HomePage)}");
+            => NavigationService.NavigateAsync($"{nameof(HomePage)}?selectedTab={nameof(FeedPage)}");
     }
 }
