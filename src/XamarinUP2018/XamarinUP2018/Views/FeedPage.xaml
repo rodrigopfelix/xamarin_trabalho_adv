@@ -12,7 +12,8 @@
            SeparatorVisibility="None"
            IsRefreshing="{Binding IsBusy}"
            ItemsSource="{Binding Items}"
-           CachingStrategy="RecycleElement">
+           CachingStrategy="RecycleElement"
+           SelectionMode="None" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -38,7 +39,7 @@
                 HorizontalOptions="Fill"
                 BackgroundColor="Red" />
                             <Label  TextColor="#000"  
-                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding UserName}" FontAttributes="Bold" />
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding User.Name}" FontAttributes="Bold" />
                             <BoxView
                 Grid.Row="0"
                 Grid.Column="4"
@@ -53,7 +54,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="5"
                 Aspect="AspectFill"
-                Source="{Binding Picture}"/>
+                Source="{Binding Urls.Small}"/>
                             <!-- icons -->
                             <BoxView
                 Grid.Row="2"
@@ -95,7 +96,19 @@
                 LineBreakMode="WordWrap"
                 TextColor="#999"
                 Margin="16, 8"
-                Text="{Binding Description}" />
+                Text="{Binding AltDescription}" />
+                            <Button 
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                Command="{Binding GoPicture}"
+                                Visual="Material"
+                                BackgroundColor="#FF0000"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                HeightRequest="68"
+                                Margin="26"
+                                Text="More..."
+                                VerticalOptions="Start" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

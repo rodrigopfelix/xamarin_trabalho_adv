@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Prism.Commands;
 using Prism.Navigation;
 using XamarinUP2018.Models;
 using XamarinUP2018.Services;
+using XamarinUP2018.Views;
 
 namespace XamarinUP2018.ViewModels
 {
     public sealed class FeedViewModel : ViewModelBase
     {
-        private readonly IFeedService feedService;
+        private readonly IUnsplashService unsplashService;
+        private ObservableCollection<UnsplashPicture> items = new ObservableCollection<UnsplashPicture>();
 
         public FeedViewModel(INavigationService navigationService 
-            , IFeedService feedService) 
+            , IUnsplashService unsplashService) 
             : base(navigationService)
         {
-            this.feedService = feedService;
+            this.unsplashService = unsplashService;
         }
 
-        private ObservableCollection<FeedItem> items = new ObservableCollection<FeedItem>();
-
-        public ObservableCollection<FeedItem> Items
+        public ObservableCollection<UnsplashPicture> Items
         {
             get => items;
             set => SetProperty(ref items, value);
@@ -39,7 +38,7 @@ namespace XamarinUP2018.ViewModels
         {
             await ExecuteBusyAction(async () => {
 
-                var feedItems = await feedService.GetFeedItems();
+                var feedItems = await unsplashService.GetPictures();
 
                 Items.Clear();
 
