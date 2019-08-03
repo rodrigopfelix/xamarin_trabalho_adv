@@ -4,7 +4,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="XamarinUP2018.Views.FeedPage">
+             x:Class="XamarinUP2018.Views.FeedPage"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:c="clr-namespace:Prism.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ListView
            HasUnevenRows="True"
@@ -14,6 +21,12 @@
            ItemsSource="{Binding Items}"
            CachingStrategy="RecycleElement"
            SelectionMode="None" >
+
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding GoPicture}"
+                                      EventArgsParameterPath="Item" />
+            </ListView.Behaviors>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -97,6 +110,7 @@
                 TextColor="#999"
                 Margin="16, 8"
                 Text="{Binding AltDescription}" />
+                            <!--
                             <Button 
                                 Grid.Row="3"
                                 Grid.Column="3"
@@ -108,7 +122,7 @@
                                 HeightRequest="68"
                                 Margin="26"
                                 Text="More..."
-                                VerticalOptions="Start" />
+                                VerticalOptions="Start" />-->
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

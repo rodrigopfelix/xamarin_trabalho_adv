@@ -12,6 +12,7 @@ namespace XamarinUP2018.ViewModels
     public sealed class FeedViewModel : ViewModelBase
     {
         private readonly IUnsplashService unsplashService;
+        public ICommand GoPicture { get; }
         private ObservableCollection<UnsplashPicture> items = new ObservableCollection<UnsplashPicture>();
 
         public FeedViewModel(INavigationService navigationService 
@@ -19,6 +20,7 @@ namespace XamarinUP2018.ViewModels
             : base(navigationService)
         {
             this.unsplashService = unsplashService;
+            this.GoPicture = new DelegateCommand<UnsplashPicture>(async (picture) => await ExecuteGoPicture(picture));
         }
 
         public ObservableCollection<UnsplashPicture> Items
@@ -48,6 +50,14 @@ namespace XamarinUP2018.ViewModels
                 }
 
             });
+        }
+
+        private Task ExecuteGoPicture(UnsplashPicture picture)
+        {
+            var param = new NavigationParameters();
+            param.Add("picture", picture);
+
+            return NavigationService.NavigateAsync($"{nameof(PicturePage)}", param);
         }
     }
 }
