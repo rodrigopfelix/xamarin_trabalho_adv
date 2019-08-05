@@ -15,7 +15,7 @@ namespace XamarinUP2018.Services
     public sealed class UnsplashService : IUnsplashService
     {
         private string clientId = "ed9ebc8ec5174015e866f9916f71adc3fb949a08ea9b015a03826078383d6e27";
-        private string GetApiUrl(int picCount = 10)
+        private string GetApiUrl(int picCount = 6)
             => $"https://api.unsplash.com/photos/random/?count={picCount}&client_id={clientId}";
 
         public async Task<List<UnsplashPicture>> GetPictures()

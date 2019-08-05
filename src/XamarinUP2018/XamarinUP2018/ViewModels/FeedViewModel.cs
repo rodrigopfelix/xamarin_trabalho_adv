@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Navigation;
+using Xamarin.Forms;
 using XamarinUP2018.Models;
 using XamarinUP2018.Services;
 using XamarinUP2018.Views;
@@ -32,23 +33,18 @@ namespace XamarinUP2018.ViewModels
         public override async void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
-
             await LoadFeedItems();
         }
 
         private async Task LoadFeedItems()
         {
-            await ExecuteBusyAction(async () => {
-
+            await ExecuteBusyAction(async () => 
+            { 
                 var feedItems = await unsplashService.GetPictures();
-
                 Items.Clear();
 
                 foreach (var item in feedItems)
-                {
                     Items.Add(item);
-                }
-
             });
         }
 
@@ -58,6 +54,25 @@ namespace XamarinUP2018.ViewModels
             param.Add("picture", picture);
 
             return NavigationService.NavigateAsync($"{nameof(PicturePage)}", param);
+        }
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsBusy = true;
+
+                    var feedItems = await unsplashService.GetPictures();
+                    Items.Clear();
+
+                    foreach (var item in feedItems)
+                        Items.Add(item);
+
+                    IsBusy = false;
+                });
+            }
         }
     }
 }

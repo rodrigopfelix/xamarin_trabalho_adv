@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Prism.Navigation;
+﻿using Prism.Navigation;
 using XamarinUP2018.Models;
 
 namespace XamarinUP2018.ViewModels
 {
     class PictureViewModel : ViewModelBase
     {
-        string _name;
-        public string Name
+        UnsplashPicture _picture;
+        public UnsplashPicture Picture
         {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
+            get { return _picture; }
+            set { SetProperty(ref _picture, value); }
         }
 
         public PictureViewModel(INavigationService navigationService) : base(navigationService)
         {
         }
-        public override async void OnNavigatingTo(INavigationParameters parameters)
+
+        public override void OnNavigatingTo(INavigationParameters parameters)
         {
-            UnsplashPicture unsplashPicture = (UnsplashPicture)parameters["picture"];
-            Name = "Imagem de " + unsplashPicture.User.Name;
+            Picture = (UnsplashPicture)parameters["picture"];
+            if (Picture.Description == null)
+                Picture.Description = Picture.AltDescription;
         }
     }
 }

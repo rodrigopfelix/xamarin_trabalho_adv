@@ -3,13 +3,142 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:controls="clr-namespace:Uteis"
+             NavigationPage.HasNavigationBar="False"
              mc:Ignorable="d"
              x:Class="XamarinUP2018.Views.PicturePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NameStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Margin" Value="24, 24, 0, 12" />
+            </Style>
+            <Style x:Key="DescriptionTitleStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Margin" Value="24, 0, 0, 0" />
+            </Style>
+            <Style x:Key="DescriptionStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="24, 0, 24, 0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Name}" 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="230" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- IMAGE -->
+            <Image
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="3"
+                Aspect="AspectFill"
+                Source="{Binding Picture.Urls.Regular}"/>
+
+            <!-- PANEL-->
+            <controls:ParallaxControl
+                x:Name="Parallax"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="300" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <pancakeview:PancakeView
+                    Grid.Row="1"
+                    CornerRadius="24, 24, 0, 0"
+                    Margin="0, 20, 0, 0"
+                    BackgroundColor="#DDD">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <!-- PICTURE DETAILS -->
+                            <Label Grid.Column="0" Text="{Binding Picture.Description}" Style="{StaticResource NameStyle}"/>
+
+                            <!-- FAVOURITE -->
+                            <controls:ToggleButton
+                                Grid.Column="1"
+                                Checked="False"
+                                Animate="True"
+                                CheckedImage="ic_heart_black_48dp.png"
+                                UnCheckedImage="ic_heart_outline_black_48dp.png"
+                                Margin="18, 18" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <!--<Label Grid.Column="0" Grid.Row="0" Text="Created at" Style="{StaticResource DescriptionTitleStyle}"/>-->
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Picture.CreatedAt}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="1" Text="Make" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding Picture.Exif.Make}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="2" Text="Model" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding Picture.Exif.Model}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="3" Text="Exposure" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="3" Text="{Binding Picture.Exif.ExposureTime}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="4" Text="Aperture" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="4" Text="{Binding Picture.Exif.Aperture}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="5" Text="Focal length" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="5" Text="{Binding Picture.Exif.FocalLength}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="6" Text="ISO" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="6" Text="{Binding Picture.Exif.Iso}" Style="{StaticResource DescriptionStyle}"/>
+                        </Grid>
+
+                        <!-- USER DETAILS -->
+                        <Label Text="{Binding Picture.User.Name}" Style="{StaticResource NameStyle}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="0" Text="Bio" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Picture.User.Bio}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="1" Text="Location" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding Picture.User.Location}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="2" Text="Instagram" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding Picture.User.InstagramUsername}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="3" Text="Twitter" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="3" Text="{Binding Picture.User.TwitterUsername}" Style="{StaticResource DescriptionStyle}"/>
+                            <Label Grid.Column="0" Grid.Row="4" Text="Photos" Style="{StaticResource DescriptionTitleStyle}"/>
+                            <Label Grid.Column="1" Grid.Row="4" Text="{Binding Picture.User.TotalPhotos}" Style="{StaticResource DescriptionStyle}"/>
+                        </Grid>
+                    </StackLayout>
+                </pancakeview:PancakeView>
+            </Grid>
+            </controls:ParallaxControl>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

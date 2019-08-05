@@ -6,127 +6,76 @@
              mc:Ignorable="d"
              x:Class="XamarinUP2018.Views.FeedPage"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:c="clr-namespace:Prism.Converters">
     <ContentPage.Resources>
         <ResourceDictionary>
             <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.Content>
-        <ListView
-           HasUnevenRows="True"
-           SeparatorColor="Transparent"
-           SeparatorVisibility="None"
-           IsRefreshing="{Binding IsBusy}"
-           ItemsSource="{Binding Items}"
-           CachingStrategy="RecycleElement"
-           SelectionMode="None" >
 
-            <ListView.Behaviors>
-                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding GoPicture}"
-                                      EventArgsParameterPath="Item" />
-            </ListView.Behaviors>
+    <ContentPage.Content>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid RowSpacing="0" ColumnSpacing="0" Margin="0,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="28" />
-                                <RowDefinition Height="280" />
-                                <RowDefinition Height="28" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="28" />
-                                <ColumnDefinition Width="28" />
-                                <ColumnDefinition Width="28" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="28" />
-                            </Grid.ColumnDefinitions>
-                            <!-- header -->
-                            <BoxView
+            <!--TITLE-->
+            <Label 
                 Grid.Row="0"
-                Grid.Column="0"
-                VerticalOptions="Fill"
-                HorizontalOptions="Fill"
-                BackgroundColor="Red" />
-                            <Label  TextColor="#000"  
-                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding User.Name}" FontAttributes="Bold" />
-                            <BoxView
-                Grid.Row="0"
-                Grid.Column="4"
-                HeightRequest="28"
-                WidthRequest="28"
-                VerticalOptions="Fill"
-                HorizontalOptions="Fill"
-                BackgroundColor="Maroon" />
-                            <!-- image -->
-                            <Image
+                Text="Unsplash pictures"
+                FontAttributes="Bold"
+                FontSize="32"
+                TextColor="Black"
+                Margin="20, 20, 0, 12"/>
+            
+            <!--PICTURE LIST-->
+            <ListView
                 Grid.Row="1"
-                Grid.Column="0"
-                Grid.ColumnSpan="5"
-                Aspect="AspectFill"
-                Source="{Binding Urls.Small}"/>
-                            <!-- icons -->
-                            <BoxView
-                Grid.Row="2"
-                Grid.Column="0"
-                HeightRequest="28"
-                WidthRequest="28"
-                VerticalOptions="Fill"
-                HorizontalOptions="Fill"
-                BackgroundColor="Red" />
-                            <BoxView
-                Grid.Row="2"
-                Grid.Column="1"
-                HeightRequest="28"
-                WidthRequest="28"
-                VerticalOptions="Fill"
-                HorizontalOptions="Fill"
-                BackgroundColor="Yellow" />
-                            <BoxView
-                Grid.Row="2"
-                Grid.Column="2"
-                HeightRequest="28"
-                WidthRequest="28"
-                VerticalOptions="Fill"
-                HorizontalOptions="Fill"
-                BackgroundColor="Chartreuse" />
-                            <BoxView
-                Grid.Row="2"
-                Grid.Column="4"
-                HeightRequest="28"
-                WidthRequest="28"
-                VerticalOptions="Fill"
-                HorizontalOptions="Fill"
-                BackgroundColor="Maroon" />
-                            <!-- text -->
-                            <Label
-                Grid.Row="3"
-                Grid.Column="0"
-                Grid.ColumnSpan="4"
-                LineBreakMode="WordWrap"
-                TextColor="#999"
-                Margin="16, 8"
-                Text="{Binding AltDescription}" />
-                            <!--
-                            <Button 
-                                Grid.Row="3"
-                                Grid.Column="3"
-                                Command="{Binding GoPicture}"
-                                Visual="Material"
-                                BackgroundColor="#FF0000"
-                                TextColor="White"
-                                FontAttributes="Bold"
-                                HeightRequest="68"
-                                Margin="26"
-                                Text="More..."
-                                VerticalOptions="Start" />-->
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                HasUnevenRows="True"
+                SeparatorColor="Transparent"
+                SeparatorVisibility="None"
+                IsRefreshing="{Binding IsBusy}"
+                ItemsSource="{Binding Items}"
+                CachingStrategy="RecycleElement"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                SelectionMode="None">
+
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior 
+                        EventName="ItemTapped" 
+                        Command="{Binding GoPicture}"                  
+                        EventArgsParameterPath="Item" />
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid 
+                                BackgroundColor="White"
+                                HeightRequest="250"
+                                Margin="12, 12"
+                                RowSpacing="0">
+
+                                <pancakeview:PancakeView
+                                    Grid.Row="0"
+                                    CornerRadius="18"
+                                    HasShadow="True"
+                                    BorderThickness="0">
+
+                                    <Image Aspect="AspectFill" Source="{Binding Urls.Small}"/>
+
+                                </pancakeview:PancakeView>
+
+                            </Grid>
+                            
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
