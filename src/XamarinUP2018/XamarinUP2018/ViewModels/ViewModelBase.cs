@@ -15,7 +15,7 @@ namespace XamarinUP2018.ViewModels
 
         public INavigationService NavigationService { get; }
 
-        private bool isBusy;
+        private bool isBusy = false;
         public bool IsBusy
         {
             get => isBusy;

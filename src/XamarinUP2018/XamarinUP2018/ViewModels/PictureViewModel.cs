@@ -1,8 +1,5 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using XamarinUP2018.Models;
@@ -28,27 +25,6 @@ namespace XamarinUP2018.ViewModels
             get { return _wasFavorited; }
             set { SetProperty(ref _wasFavorited, value); }
         }
-
-        /*private ObservableCollection<UnsplashPicture> favoritesPictures = new ObservableCollection<UnsplashPicture>();
-        public ObservableCollection<UnsplashPicture> FavoritesPictures
-        {
-            get => favoritesPictures;
-            set => SetProperty(ref favoritesPictures, value);
-        }
-        
-        private async Task LoadFavorites()
-        {
-            var collection = await favoriteService.All();
-            FavoritesPictures = new ObservableCollection<UnsplashPicture>(collection);
-        }
-
-        public override async void OnNavigatingTo(INavigationParameters parameters)
-        {
-            await ExecuteBusyAction(async () =>
-            {
-                await LoadFavorites();
-            });
-        }*/
 
         public PictureViewModel(
             INavigationService navigationService
@@ -80,7 +56,7 @@ namespace XamarinUP2018.ViewModels
         {
             await ExecuteBusyAction(async () =>
             {
-                // The button favorite first and so call this event
+                // The button change WasFavorited's value first and so call this event
                 if (WasFavorited)
                     await favoriteService.Add(Picture);
                 else

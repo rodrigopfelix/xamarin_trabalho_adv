@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Prism.Commands;
@@ -15,6 +16,18 @@ namespace XamarinUP2018.ViewModels
         private readonly IUnsplashService unsplashService;
         public ICommand GoPicture { get; }
         private ObservableCollection<UnsplashPicture> items = new ObservableCollection<UnsplashPicture>();
+        public ObservableCollection<UnsplashPicture> Items
+        {
+            get => items;
+            set => SetProperty(ref items, value);
+        }
+
+        private bool showNoData = false;
+        public bool ShowNoData
+        {
+            get => showNoData;
+            set => SetProperty(ref showNoData, value);
+        }
 
         public FeedViewModel(INavigationService navigationService 
             , IUnsplashService unsplashService) 
@@ -22,12 +35,6 @@ namespace XamarinUP2018.ViewModels
         {
             this.unsplashService = unsplashService;
             this.GoPicture = new DelegateCommand<UnsplashPicture>(async (picture) => await ExecuteGoPicture(picture));
-        }
-
-        public ObservableCollection<UnsplashPicture> Items
-        {
-            get => items;
-            set => SetProperty(ref items, value);
         }
 
         public override async void OnNavigatingTo(INavigationParameters parameters)
@@ -39,13 +46,18 @@ namespace XamarinUP2018.ViewModels
         private async Task LoadFeedItems()
         {
             await ExecuteBusyAction(async () => 
-            { 
-                var feedItems = await unsplashService.GetPictures();
-                Items.Clear();
-
-                foreach (var item in feedItems)
-                    Items.Add(item);
+            {
+                UpdateItens(await unsplashService.GetPictures());
             });
+        }
+
+        private void UpdateItens(List<UnsplashPicture> itens)
+        {
+            Items.Clear();
+            ShowNoData = itens.Count == 0;
+
+            foreach (var item in itens)
+                Items.Add(item);
         }
 
         private Task ExecuteGoPicture(UnsplashPicture picture)
@@ -58,21 +70,15 @@ namespace XamarinUP2018.ViewModels
 
         public ICommand RefreshCommand
         {
-            get
-            {
-                return new Command(async () =>
+            get => new Command(async () =>
                 {
+                    ShowNoData = false;
                     IsBusy = true;
 
-                    var feedItems = await unsplashService.GetPictures();
-                    Items.Clear();
-
-                    foreach (var item in feedItems)
-                        Items.Add(item);
+                    UpdateItens(await unsplashService.GetPictures());
 
                     IsBusy = false;
                 });
-            }
         }
     }
 }

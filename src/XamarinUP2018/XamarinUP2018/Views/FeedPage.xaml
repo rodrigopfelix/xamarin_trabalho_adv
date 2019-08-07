@@ -4,10 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="XamarinUP2018.Views.FeedPage"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:c="clr-namespace:Prism.Converters">
+             xmlns:c="clr-namespace:Prism.Converters"
+             x:Class="XamarinUP2018.Views.FeedPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
@@ -29,8 +29,18 @@
                 FontAttributes="Bold"
                 FontSize="32"
                 TextColor="Black"
-                Margin="20, 20, 0, 12"/>
-            
+                HorizontalOptions="CenterAndExpand"
+                Margin="20, 20, 20, 12"/>
+
+            <!--NO ITENS-->
+            <Label 
+                Grid.Row="1"
+                IsVisible="{Binding ShowNoData}"
+                HorizontalOptions="CenterAndExpand"
+                Text="No itens found =("
+                FontSize="25"
+                Margin="0, 50" />
+
             <!--PICTURE LIST-->
             <ListView
                 Grid.Row="1"

@@ -24,7 +24,6 @@ namespace XamarinUP2018
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.Register<IFeedService, FeedService>();
             containerRegistry.Register<ILocalDataBaseRepository, LocalDataBaseRepository>();
             containerRegistry.Register<IUnsplashService, UnsplashService>();
             containerRegistry.Register<IFavoriteService, FavoriteService>();
@@ -33,8 +32,6 @@ namespace XamarinUP2018
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(nameof(HomePage));
             containerRegistry.RegisterForNavigation<OnBoardingPage, OnBoardingViewModel>(nameof(OnBoardingPage));
             containerRegistry.RegisterForNavigation<FeedPage, FeedViewModel>(nameof(FeedPage));
-            //containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewModel>(nameof(HistoryPage));
-            containerRegistry.RegisterForNavigation<AboutPage, AboutViewModel>(nameof(AboutPage));
             containerRegistry.RegisterForNavigation<PicturePage, PictureViewModel>(nameof(PicturePage));
             containerRegistry.RegisterForNavigation<FavoritePage, FavoriteViewModel>(nameof(FavoritePage));
         }
