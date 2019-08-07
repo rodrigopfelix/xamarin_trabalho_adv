@@ -73,13 +73,15 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="70" />
                             </Grid.ColumnDefinitions>
+                            
                             <!-- PICTURE DETAILS -->
                             <Label Grid.Column="0" Text="{Binding Picture.Description}" Style="{StaticResource NameStyle}"/>
 
-                            <!-- FAVOURITE -->
+                            <!-- FAVORITE -->
                             <controls:ToggleButton
                                 Grid.Column="1"
-                                Checked="False"
+                                Command="{Binding FavoritePicture}"
+                                Checked="{Binding WasFavorited}"
                                 Animate="True"
                                 CheckedImage="ic_heart_black_48dp.png"
                                 UnCheckedImage="ic_heart_outline_black_48dp.png"

@@ -1,11 +1,8 @@
 ﻿using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
-using System;
-using System.Net.Http;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XamarinUP2018.Models;
+using XamarinUP2018.Repositories;
 using XamarinUP2018.Services;
 using XamarinUP2018.ViewModels;
 using XamarinUP2018.Views;
@@ -28,15 +25,18 @@ namespace XamarinUP2018
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //containerRegistry.Register<IFeedService, FeedService>();
+            containerRegistry.Register<ILocalDataBaseRepository, LocalDataBaseRepository>();
             containerRegistry.Register<IUnsplashService, UnsplashService>();
+            containerRegistry.Register<IFavoriteService, FavoriteService>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>(nameof(NavigationPage));
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(nameof(HomePage));
             containerRegistry.RegisterForNavigation<OnBoardingPage, OnBoardingViewModel>(nameof(OnBoardingPage));
             containerRegistry.RegisterForNavigation<FeedPage, FeedViewModel>(nameof(FeedPage));
-            containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewModel>(nameof(HistoryPage));
+            //containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewModel>(nameof(HistoryPage));
             containerRegistry.RegisterForNavigation<AboutPage, AboutViewModel>(nameof(AboutPage));
             containerRegistry.RegisterForNavigation<PicturePage, PictureViewModel>(nameof(PicturePage));
+            containerRegistry.RegisterForNavigation<FavoritePage, FavoriteViewModel>(nameof(FavoritePage));
         }
         
         protected override void OnStart()

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using XamarinUP2018.iOS.Services;
+using XamarinUP2018.Services;
+using Prism;
+using Prism.Ioc;
 using UIKit;
 using Xamarin.Forms;
 
@@ -25,9 +29,16 @@ namespace XamarinUP2018.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             FormsMaterial.Init();
-            LoadApplication(new App());
-
+            LoadApplication(new App(new IOSPlatformInitializer()));
             return base.FinishedLaunching(app, options);
+        }
+    }
+
+    public class IOSPlatformInitializer : IPlatformInitializer
+    {
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register<IDataBaseAccessService, DataBaseAccessService>();
         }
     }
 }
