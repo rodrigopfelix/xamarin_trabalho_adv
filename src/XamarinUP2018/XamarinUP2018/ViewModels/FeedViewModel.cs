@@ -15,6 +15,20 @@ namespace XamarinUP2018.ViewModels
     {
         private readonly IUnsplashService unsplashService;
         public ICommand GoPicture { get; }
+        public ICommand ListViewItemAppearing { get; }
+        public ICommand RefreshCommand
+        {
+            get => new Command(async () =>
+                {
+                    ShowNoData = false;
+                    IsBusy = true;
+
+                    UpdateItens(await unsplashService.GetPictures());
+
+                    IsBusy = false;
+                });
+        }
+
         private ObservableCollection<UnsplashPicture> items = new ObservableCollection<UnsplashPicture>();
         public ObservableCollection<UnsplashPicture> Items
         {
@@ -35,6 +49,7 @@ namespace XamarinUP2018.ViewModels
         {
             this.unsplashService = unsplashService;
             this.GoPicture = new DelegateCommand<UnsplashPicture>(async (picture) => await ExecuteGoPicture(picture));
+            this.ListViewItemAppearing = new DelegateCommand<UnsplashPicture>(async (picture) => await ExecuteListViewItemAppearingAsync(picture));
         }
 
         public override async void OnNavigatingTo(INavigationParameters parameters)
@@ -43,17 +58,19 @@ namespace XamarinUP2018.ViewModels
             await LoadFeedItems();
         }
 
-        private async Task LoadFeedItems()
+        private async Task LoadFeedItems(bool append = false)
         {
             await ExecuteBusyAction(async () => 
             {
-                UpdateItens(await unsplashService.GetPictures());
+                UpdateItens(await unsplashService.GetPictures(), append);
             });
         }
 
-        private void UpdateItens(List<UnsplashPicture> itens)
+        private void UpdateItens(List<UnsplashPicture> itens, bool append = false)
         {
-            Items.Clear();
+            if (!append)
+                Items.Clear();
+
             ShowNoData = itens.Count == 0;
 
             foreach (var item in itens)
@@ -68,17 +85,10 @@ namespace XamarinUP2018.ViewModels
             return NavigationService.NavigateAsync($"{nameof(PicturePage)}", param);
         }
 
-        public ICommand RefreshCommand
+        private async Task ExecuteListViewItemAppearingAsync(UnsplashPicture picture)
         {
-            get => new Command(async () =>
-                {
-                    ShowNoData = false;
-                    IsBusy = true;
-
-                    UpdateItens(await unsplashService.GetPictures());
-
-                    IsBusy = false;
-                });
+            if (IsNotBusy && Items.Count > 0 && picture.Id == Items[Items.Count - 1].Id)
+                await LoadFeedItems(true);
         }
     }
 }

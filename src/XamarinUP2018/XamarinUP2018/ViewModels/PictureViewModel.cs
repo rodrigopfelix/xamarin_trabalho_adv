@@ -40,7 +40,10 @@ namespace XamarinUP2018.ViewModels
         {
             Picture = (UnsplashPicture)parameters["picture"];
             if (Picture.Description == null)
-                Picture.Description = Picture.AltDescription;
+                Picture.Description = Picture.AltDescription == null? 
+                    "(unnamed picture)":
+                    Picture.AltDescription;
+
             await LoadIsFavorited();
         }
 

@@ -80,11 +80,11 @@ namespace XamarinUP2018.ViewModels
             get => new Command(async () =>
                 {
                     ShowNoData = false;
-                    IsBusy = true;
+                    this.IsBusy = true;
 
                     UpdateItens(await favoriteService.GetAll());
 
-                    IsBusy = false;
+                    this.IsBusy = false;
                 });
         }
     }

@@ -18,8 +18,7 @@ namespace XamarinUP2018
         protected override async void OnInitialized()
         {
             InitializeComponent();
-
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(OnBoardingPage)}");
+            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(HomePage)}?selectedTab={nameof(FeedPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -30,7 +29,6 @@ namespace XamarinUP2018
 
             containerRegistry.RegisterForNavigation<NavigationPage>(nameof(NavigationPage));
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(nameof(HomePage));
-            containerRegistry.RegisterForNavigation<OnBoardingPage, OnBoardingViewModel>(nameof(OnBoardingPage));
             containerRegistry.RegisterForNavigation<FeedPage, FeedViewModel>(nameof(FeedPage));
             containerRegistry.RegisterForNavigation<PicturePage, PictureViewModel>(nameof(PicturePage));
             containerRegistry.RegisterForNavigation<FavoritePage, FavoriteViewModel>(nameof(FavoritePage));

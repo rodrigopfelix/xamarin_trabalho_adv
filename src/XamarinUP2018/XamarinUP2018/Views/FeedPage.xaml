@@ -11,6 +11,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
+            <c:ItemVisibilityEventArgsConverter x:Key="itemVisibilityEventArgsConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -58,6 +59,10 @@
                     <b:EventToCommandBehavior 
                         EventName="ItemTapped" 
                         Command="{Binding GoPicture}"                  
+                        EventArgsParameterPath="Item" />
+                    <b:EventToCommandBehavior 
+                        EventName="ItemAppearing" 
+                        Command="{Binding ListViewItemAppearing}"                  
                         EventArgsParameterPath="Item" />
                 </ListView.Behaviors>
 
